@@ -1,60 +1,66 @@
-import java.util.Arrays;
+import java.util.*;
 
-class Product {
-    int productId;
-    String productName;
-    String category;
+public class EcommerceSearch {
 
-    public Product(int id, String name, String category) {
-        this.productId = id;
-        this.productName = name;
-        this.category = category;
-    }
-}
-
-class SearchAlgorithms {
-
-    public static Product linearSearch(Product[] products, String targetName) {
-        for (Product product : products) {
-            if (product.productName.equals(targetName)) {
-                return product;
+    public static int linearSearch(String[] products, String target) {
+        for (int i = 0; i < products.length; i++) {
+            if (products[i].equalsIgnoreCase(target)) {
+                return i;
             }
         }
-        return null;
+        return -1;
     }
 
-    public static Product binarySearch(Product[] products, String targetName) {
+    public static int binarySearch(String[] products, String target) {
         int left = 0;
         int right = products.length - 1;
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            int cmp = products[mid].productName.compareTo(targetName);
 
-            if (cmp == 0) return products[mid];
-            else if (cmp < 0) left = mid + 1;
-            else right = mid - 1;
+            int cmp = products[mid].compareToIgnoreCase(target);
+
+            if (cmp == 0)
+                return mid;
+            else if (cmp < 0)
+                left = mid + 1;
+            else
+                right = mid - 1;
         }
-        return null;
-    }
-}
 
-public class EcommerceSearch {
+        return -1;
+    }
+
     public static void main(String[] args) {
 
-        Product[] products = {
-            new Product(1, "Laptop", "Electronics"),
-            new Product(2, "Phone", "Electronics"),
-            new Product(3, "Shoes", "Fashion"),
-            new Product(4, "Watch", "Accessories")
+        Scanner sc = new Scanner(System.in);
+
+        String[] products = {
+                "Laptop",
+                "Phone",
+                "Shoes",
+                "Watch"
         };
 
-        Product result1 = SearchAlgorithms.linearSearch(products, "Shoes");
-        System.out.println(result1 != null ? "Found (Linear)" : "Not Found");
+        System.out.print("Enter product name: ");
+        String target = sc.nextLine();
 
-        Arrays.sort(products, (a, b) -> a.productName.compareTo(b.productName));
+        int linearResult = linearSearch(products, target);
 
-        Product result2 = SearchAlgorithms.binarySearch(products, "Shoes");
-        System.out.println(result2 != null ? "Found (Binary)" : "Not Found");
+        if (linearResult != -1)
+            System.out.println("Found using Linear Search");
+        else
+            System.out.println("Not Found using Linear Search");
+
+        Arrays.sort(products);
+
+        int binaryResult = binarySearch(products, target);
+
+        if (binaryResult != -1)
+            System.out.println("Found using Binary Search");
+        else
+            System.out.println("Not Found using Binary Search");
+
+        sc.close();
     }
 }

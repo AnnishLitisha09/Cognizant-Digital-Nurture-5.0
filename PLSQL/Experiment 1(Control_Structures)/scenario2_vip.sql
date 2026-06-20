@@ -1,16 +1,15 @@
--- Scenario 2: Set VIP for customers with balance > 10000
-
-SET SERVEROUTPUT ON;
-
 BEGIN
-   FOR rec IN (SELECT customer_id, balance FROM customers) LOOP
-      IF rec.balance > 10000 THEN
-         UPDATE customers
-         SET IsVIP = 'TRUE'
-         WHERE customer_id = rec.customer_id;
-         DBMS_OUTPUT.PUT_LINE('VIP set for Customer ID: ' || rec.customer_id);
-      END IF;
-   END LOOP;
-   COMMIT;
+    FOR rec IN (
+        SELECT CustomerID, Balance FROM Customers
+    ) LOOP
+        IF rec.Balance > 10000 THEN
+            UPDATE Customers
+            SET Name = Name || ' (VIP)'
+            WHERE CustomerID = rec.CustomerID;
+        END IF;
+    END LOOP;
+
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('VIP updated');
 END;
 /

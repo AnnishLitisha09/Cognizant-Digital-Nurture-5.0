@@ -3,18 +3,21 @@ interface Document {
 }
 
 class WordDocument implements Document {
+    @Override
     public void open() {
         System.out.println("Opening Word Document");
     }
 }
 
 class PdfDocument implements Document {
+    @Override
     public void open() {
         System.out.println("Opening PDF Document");
     }
 }
 
 class ExcelDocument implements Document {
+    @Override
     public void open() {
         System.out.println("Opening Excel Document");
     }
@@ -25,18 +28,21 @@ abstract class DocumentFactory {
 }
 
 class WordFactory extends DocumentFactory {
+    @Override
     Document createDocument() {
         return new WordDocument();
     }
 }
 
 class PdfFactory extends DocumentFactory {
+    @Override
     Document createDocument() {
         return new PdfDocument();
     }
 }
 
 class ExcelFactory extends DocumentFactory {
+    @Override
     Document createDocument() {
         return new ExcelDocument();
     }

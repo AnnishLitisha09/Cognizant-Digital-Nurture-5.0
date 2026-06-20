@@ -1,19 +1,19 @@
--- Scenario 3: Loan reminders within next 30 days
-
 SET SERVEROUTPUT ON;
 
 BEGIN
-   FOR rec IN (
-      SELECT customer_id, loan_due_date
-      FROM loans
-      WHERE loan_due_date BETWEEN SYSDATE AND SYSDATE + 30
-   ) LOOP
-
-      DBMS_OUTPUT.PUT_LINE(
-         'Reminder: Customer ID ' || rec.customer_id || ' has a loan due on ' || rec.loan_due_date
-      );
-
-   END LOOP;
-
+    FOR rec IN (
+        SELECT c.Name, l.EndDate
+        FROM Customers c
+        JOIN Loans l
+            ON c.CustomerID = l.CustomerID
+        WHERE l.EndDate BETWEEN SYSDATE AND SYSDATE + 30
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            'Reminder: ' || rec.Name ||
+            ' loan due on ' ||
+            TO_CHAR(rec.EndDate, 'YYYY-MM-DD')
+        );
+    END LOOP;
 END;
 /

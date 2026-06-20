@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class FinancialForecast {
     public static double forecastRecursive(double presentValue, double rate, int years) {
@@ -20,9 +21,11 @@ public class FinancialForecast {
     }
 
     public static void main(String[] args) {
-        double presentValue = 1000;
-        double growthRate = 0.10;
-        int years = 5;
+        Scanner sc=new Scanner(System.in);
+        double presentValue = sc.nextDouble();
+        double growthRate = sc.nextDouble();
+        growthRate = growthRate / 100;
+        int years = sc.nextInt();
 
         double recursiveResult = forecastRecursive(presentValue, growthRate, years);
         System.out.println("Recursive Future Value: " + recursiveResult);
